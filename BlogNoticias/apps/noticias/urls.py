@@ -1,5 +1,8 @@
 from django.urls import path
-from .views import vista_inicio
+from . import views
 
-urlpatterns = []
+urlpatterns = [
+    path('listar', views.Listado_Noticias.as_view(), name = 'path_listado_noticias'),
+    path('detalle/<int:pk>', views.Detalle_Noticia.as_view(), name = 'path_detalle_noticias'),
+]
 
