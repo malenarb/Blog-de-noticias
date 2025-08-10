@@ -5,7 +5,7 @@
 {% block content %}
 
 {% for noticia in object_list %}
-    <p>{{ noticia.imagen }}</p>
+    <p><img src="{{ noticia.imagen }}"></p>
     <h3>{{ noticia.titulo }}</h3>
     <p>{{ noticia.resumen }}</p>
     <p><strong> Categoria: </strong> {{ noticia.categoria }}</p>
