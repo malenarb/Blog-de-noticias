@@ -4,8 +4,14 @@
 
 {% block content %}
 
+<div> <a href="{% url 'noticias:path_creacion_noticias' %}">Crear una nueva noticia</a></li> </div>
+
 {% for noticia in object_list %}
-    <p><img src="{{ noticia.imagen.url }}"></p>
+{% if noticia.imagen %}
+        <p><img src="{{ noticia.imagen.url }}"></p>
+    {% else %}
+        <p>No hay imagen disponible</p>
+    {% endif %}
     <h3>{{ noticia.titulo }}</h3>
     <p>{{ noticia.resumen }}</p>
     <p><strong> Categoria: </strong> {{ noticia.categoria }}</p>
