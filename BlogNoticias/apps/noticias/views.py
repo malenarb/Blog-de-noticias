@@ -19,7 +19,7 @@ from .forms import FormularioCrearNoticia
 
 class Listado_Noticias(ListView):
     model = Noticia
-    template_name = 'lista_noticias.html'
+    template_name = 'noticias/lista_noticias.html'
     context_object_name = 'noticias'
 #Coloco que las instancias las voy a llamar por una 
 #variable que se llame noticia
@@ -30,11 +30,11 @@ class Listado_Noticias(ListView):
 
 class Detalle_Noticia(DetailView):
     model = Noticia
-    template_name= 'detalle_noticias.html'
+    template_name= 'noticias/detalle_noticias.html'
     context_object_name = 'noticia'
 
 class Crear_Noticia(CreateView):
     model = Noticia
-    template_name = 'crear_noticias.html'
+    template_name = 'noticias/crear_noticias.html'
     form_class = FormularioCrearNoticia
     success_url = reverse_lazy('noticias:path_listado_noticias') #Una vez que la noticia se creo correctamente, a donde voy a redirigir al usuario
