@@ -38,3 +38,4 @@ class Crear_Noticia(CreateView):
     template_name = 'noticias/crear_noticias.html'
     form_class = FormularioCrearNoticia
     success_url = reverse_lazy('noticias:path_listado_noticias') #Una vez que la noticia se creo correctamente, a donde voy a redirigir al usuario
+

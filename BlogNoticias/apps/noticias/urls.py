@@ -8,6 +8,6 @@ app_name = "noticias"
 urlpatterns = [
     path('listar', views.Listado_Noticias.as_view(), name = 'path_listado_noticias'),
     path('detalle/<int:pk>', views.Detalle_Noticia.as_view(), name = 'path_detalle_noticias'),
-    path('crear/', views.Crear_Noticia.as_view(), name = 'path_creacion_noticias')
+    path('crear/', views.Crear_Noticia.as_view(), name = 'path_creacion_noticias'),
 ]
 

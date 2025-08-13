@@ -12,7 +12,7 @@
     {% else %}
         <p>No hay imagen disponible</p>
     {% endif %}
-    <h3>{{ noticia.titulo }}</h3>
+    <h3><a href="{% url 'noticias:path_detalle_noticias' noticia.pk %}">{{ noticia.titulo }}</a></h3>
     <p>{{ noticia.resumen }}</p>
     <p><strong> Categoria: </strong> {{ noticia.categoria }}</p>
 {% endfor %}

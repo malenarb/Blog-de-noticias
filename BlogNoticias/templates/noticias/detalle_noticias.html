@@ -3,5 +3,8 @@
 {% block title %}Detalle Noticia{% endblock %}
 
 {% block content %}
-
+<img src="{{ noticia.imagen.url }}" width="600">
+<h1>{{ noticia.titulo }}</h1>
+<h4>{{ noticia.resumen }}</h4>
+<p>{{ noticia.contenido }}</p>
 {% endblock %}
