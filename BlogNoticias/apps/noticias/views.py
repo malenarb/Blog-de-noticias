@@ -15,7 +15,7 @@ from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
 
 from django.urls import reverse_lazy
-from .forms import FormularioCrearNoticia
+from .forms import FormularioCMNoticia
 
 class Listado_Noticias(ListView):
     model = Noticia
@@ -36,6 +36,15 @@ class Detalle_Noticia(DetailView):
 class Crear_Noticia(CreateView):
     model = Noticia
     template_name = 'noticias/crear_noticias.html'
-    form_class = FormularioCrearNoticia
+    form_class = FormularioCMNoticia
     success_url = reverse_lazy('noticias:path_listado_noticias') #Una vez que la noticia se creo correctamente, a donde voy a redirigir al usuario
 
+class Modificar_Noticia(UpdateView):
+    model = Noticia
+    template_name = 'noticias/modificar_noticias.html'
+    form_class = FormularioCMNoticia
+    success_url = reverse_lazy('noticias:path_listado_noticias')
+
+class Eliminar_Noticia(DeleteView):
+    model = Noticia
+    success_url = reverse_lazy('noticias:path_listado_noticias')

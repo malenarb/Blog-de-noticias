@@ -3,5 +3,14 @@
 {% block title %}Modificar Noticia{% endblock %}
 
 {% block content %}
-
+<h1>
+    Modificar noticia: {{noticia.titulo}}
+</h1>
+<div>
+    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+    
+        {{form.as_p}}
+        <button type="submit">Confirmar</button>
+    </form>
+</div>
 {% endblock %}
