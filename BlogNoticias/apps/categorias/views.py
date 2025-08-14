@@ -15,3 +15,4 @@ class Listado_Categorias(ListView):
     model = Categoria
     template_name = 'categorias/lista_categorias.html'
     context_object_name = 'categorias'
+
