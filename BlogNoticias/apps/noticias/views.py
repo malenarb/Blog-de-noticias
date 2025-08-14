@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect #redirect
 
 #Importo el modelo de noticias para poder trabajar con las instancias de noticas
 from .models import Noticia
@@ -16,6 +16,8 @@ from django.views.generic.edit import DeleteView
 
 from django.urls import reverse_lazy
 from .forms import FormularioCrearNoticia
+#agregadoFR
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 class Listado_Noticias(ListView):
     model = Noticia
@@ -33,9 +35,15 @@ class Detalle_Noticia(DetailView):
     template_name= 'noticias/detalle_noticias.html'
     context_object_name = 'noticia'
 
-class Crear_Noticia(CreateView):
+#modiFR
+class Crear_Noticia(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Noticia
     template_name = 'noticias/crear_noticias.html'
     form_class = FormularioCrearNoticia
     success_url = reverse_lazy('noticias:path_listado_noticias') #Una vez que la noticia se creo correctamente, a donde voy a redirigir al usuario
+
+
+def test_func(self):
+    return self.request.user.is_staff or self.request.user.is_superuser
+
 
