@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Noticias{% endblock %}
+
+{% block content %}
+
+{% if noticias %}
+    {% for noticia in  noticias %}
+
+        {% if noticia.imagen %}
+            <p><img src="{{ noticia.imagen.url }}"></p>
+        {% else %}
+            <p>No hay imagen disponible</p>
+        {% endif %}
+        <h3><a href="{% url 'noticias:path_detalle_noticias' noticia.pk %}">{{ noticia.titulo }}</a></h3>
+        <p>{{ noticia.resumen }}</p>
+        <p><strong> Categoria: </strong> {{ noticia.categoria }}</p>
+    {% endfor %}
+{% else %}
+    <p>Aún no existen noticias para esta categoria</p>
+{% endif %}
+
+{% endblock %}

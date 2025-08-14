@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 #Importo el modelo de noticias para poder trabajar con las instancias de noticas
 from .models import Noticia
-
+from apps.categorias.models import Categoria
 #Estoy importando las clases genéricas de django para hacer una vista basada en clases
 #En este caso voy a tener una vista basada en clases para hacer lo básico 
 # (detalle de noticia, listado de noticias, crear, modificar y eliminar noticias)
@@ -48,3 +48,8 @@ class Modificar_Noticia(UpdateView):
 class Eliminar_Noticia(DeleteView):
     model = Noticia
     success_url = reverse_lazy('noticias:path_listado_noticias')
+
+def Filtrado_Por_Categorias(request, pk):
+    categoria_filtro= Categoria.objects.get(pk = pk) 
+    noticias_filtradas = Noticia.objects.filter(categoria = categoria_filtro )
+    return render (request, 'noticias/filtrado_noticias.html', {'noticias': noticias_filtradas})

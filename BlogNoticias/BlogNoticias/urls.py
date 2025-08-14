@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', views.Home, name = 'path_home'),
     path('noticias/', include('apps.noticias.urls', namespace='noticias')),
+    path('categorias/', include('apps.categorias.urls', namespace='categorias')),
 ] + static (settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 #revisar esto último, no estoy segura de para qué se usaba

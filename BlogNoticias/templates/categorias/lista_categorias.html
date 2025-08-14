@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Categorias{% endblock %}
+
+{% block content %}
+
+{% for categoria in object_list %}
+
+{% if categoria.imagen %}
+        <p><a href="{% url 'noticias:path_filtrar_por_categoria_noticias' categoria.pk %}">
+                <img src="{{ categoria.imagen.url }}" width="200">
+            </a>
+        </p>
+    {% else %}
+        <p>No hay imagen disponible</p>
+    {% endif %}
+    <p>{{ categoria.nombre }}</p>
+{% endfor %}
+
+{% endblock %}
