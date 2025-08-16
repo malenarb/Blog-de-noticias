@@ -33,6 +33,11 @@ class Detalle_Noticia(DetailView):
     model = Noticia
     template_name= 'noticias/detalle_noticias.html'
     context_object_name = 'noticia'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comentarios'] = self.object.comentarios.all().order_by('-creado_en')
+        context['user'] = self.request.user  # 👈 Forzamos el usuario al contexto
+        return context
 
 #modiFR
 class Crear_Noticia(CreateView):
