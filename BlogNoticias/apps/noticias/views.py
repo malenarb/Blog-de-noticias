@@ -52,4 +52,4 @@ class Eliminar_Noticia(DeleteView):
 def Filtrado_Por_Categorias(request, pk):
     categoria_filtro= Categoria.objects.get(pk = pk) 
     noticias_filtradas = Noticia.objects.filter(categoria = categoria_filtro )
-    return render (request, 'noticias/filtrado_noticias.html', {'noticias': noticias_filtradas})
+    return render (request, 'noticias/filtrado_noticias.html', {'noticias': noticias_filtradas, 'categoria': categoria_filtro})

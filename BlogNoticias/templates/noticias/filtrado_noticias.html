@@ -1,23 +1,27 @@
 {% extends 'base.html' %}
 
-{% block title %}Lista de Noticias{% endblock %}
+{% block title %}Noticias acerca de {{categoria.nombre}}{% endblock %}
 
 {% block content %}
 
-{% if noticias %}
-    {% for noticia in  noticias %}
+<h2>{{categoria.nombre}}</h2>
+<p>{{categoria.descripcion}}</p>
+<div>
+    {% if noticias %}
+        {% for noticia in  noticias %}
 
-        {% if noticia.imagen %}
-            <p><img src="{{ noticia.imagen.url }}"></p>
-        {% else %}
-            <p>No hay imagen disponible</p>
-        {% endif %}
-        <h3><a href="{% url 'noticias:path_detalle_noticias' noticia.pk %}">{{ noticia.titulo }}</a></h3>
-        <p>{{ noticia.resumen }}</p>
-        <p><strong> Categoria: </strong> {{ noticia.categoria }}</p>
-    {% endfor %}
-{% else %}
-    <p>Aún no existen noticias para esta categoria</p>
-{% endif %}
+            {% if noticia.imagen %}
+                <p><img src="{{ noticia.imagen.url }}"></p>
+            {% else %}
+                <p>No hay imagen disponible</p>
+            {% endif %}
+            <h3><a href="{% url 'noticias:path_detalle_noticias' noticia.pk %}">{{ noticia.titulo }}</a></h3>
+            <p>{{ noticia.resumen }}</p>
+            <p><strong> Categoria: </strong> {{ noticia.categoria }}</p>
+        {% endfor %}
+    {% else %}
+        <p>Aún no existen noticias para esta categoria</p>
+    {% endif %}
+</div>
 
 {% endblock %}
