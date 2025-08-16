@@ -8,6 +8,9 @@ app_name = "noticias"
 urlpatterns = [
     path('listar', views.Listado_Noticias.as_view(), name = 'path_listado_noticias'),
     path('detalle/<int:pk>', views.Detalle_Noticia.as_view(), name = 'path_detalle_noticias'),
-    path('crear/', views.Crear_Noticia.as_view(), name = 'path_creacion_noticias'),
+    path('crear', views.Crear_Noticia.as_view(), name = 'path_creacion_noticias'),
+    path('modificar/<int:pk>', views.Modificar_Noticia.as_view(), name = 'path_modificacion_noticias'),
+    path('eliminar/<int:pk>', views.Eliminar_Noticia.as_view(), name = 'path_eliminacion_noticias'),
+    path('filtrar/<int:pk>', views.Filtrado_Por_Categorias, name= 'path_filtrar_por_categoria_noticias')
 ]
 

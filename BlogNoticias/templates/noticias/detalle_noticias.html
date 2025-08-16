@@ -3,6 +3,7 @@
 {% block title %}{{ noticia.titulo }} - Detalle Noticia{% endblock %}
 
 {% block content %}
+
 <div class="container mt-4">
     <div class="row">
         <div class="col-lg-8 mx-auto">
@@ -42,4 +43,8 @@
         </div>
     </div>
 </div>
+
+<a href="{% url 'noticias:path_modificacion_noticias' noticia.pk %}">Modificar</a> <br>
+<a href="{% url 'noticias:path_eliminacion_noticias' noticia.pk %}">Eliminar</a>
+
 {% endblock %}
