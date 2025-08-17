@@ -6,9 +6,9 @@ class Noticia(models.Model):
     resumen = models.TextField(max_length=300, blank=True)
     contenido = models.TextField()
     imagen = models.ImageField(upload_to='noticias/', blank=True, null=True)
-    # autor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    #autor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)
-    # publicado = models.BooleanField(default=False)
+    #publicado = models.BooleanField(default=False)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
 

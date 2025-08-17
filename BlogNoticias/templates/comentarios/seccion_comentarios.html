@@ -1,0 +1,164 @@
+<!-- Sección de Comentarios -->
+<div class="comentarios-seccion mt-5">
+    <hr>
+    <h3>Comentarios ({{ comentarios.count }})</h3>
+    
+    <!-- Formulario para agregar comentario (solo autors autenticados) -->
+    {% if user.is_authenticated %}
+        <div class="agregar-comentario mb-4">
+            <h5>Agregar un comentario</h5>
+            <form method="post" action="{% url 'comentarios:crear_comentario' noticia.id %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="contenido" class="form-label">Tu comentario:</label>
+                    <textarea class="form-control" id="contenido" name="contenido" rows="3" required placeholder="Escribe tu comentario aquí..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Publicar Comentario
+                </button>
+            </form>
+        </div>
+        <hr>
+    {% else %}
+        <div class="alert alert-info">
+            <strong>¿Quieres comentar?</strong> 
+            <a href="{% url 'login' %}">Inicia sesión</a> o 
+            <a href="{% url 'registro' %}">regístrate</a> para participar en la conversación.
+        </div>
+    {% endif %}
+
+<!-- Lista de comentarios existentes -->
+<div class="comentarios-lista">
+    {% if comentarios %}
+        {% for comentario in comentarios %}
+            <div class="comentario mb-4 p-3 border rounded">
+                <div class="comentario-header d-flex justify-content-between align-items-start mb-2">
+                    <div class="autor-info">
+                        <strong>{{ comentario.autor.username }}</strong>
+                        {% if comentario.autor.is_staff %}
+                            <span class="badge bg-warning text-dark">Moderador</span>
+                        {% endif %}
+                        <small class="text-muted ms-2">
+                            {{ comentario.creado_en|date:"d/m/Y H:i" }}
+                            {% if comentario.creado_en != comentario.creado_en %}
+                                <em>(editado el {{ comentario.creado_en|date:"d/m/Y H:i" }})</em>
+                            {% endif %}
+                        </small>
+                    </div>
+                    
+                    <!-- Opciones de edición/eliminación -->
+                    {% if request.user.is_authenticated and request.user == comentario.autor or request.user.is_staff %}
+                        <div class="comentario-acciones">
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                    ⋮
+                                </button>
+                                <ul class="dropdown-menu">
+                                    {% if request.user == comentario.autor %}
+                                        <li>
+                                            <a class="dropdown-item" href="{% url 'comentarios:editar_comentario' comentario.id %}">
+                                                Editar
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                    <li>
+                                        <a class="dropdown-item text-danger" href="#" onclick="confirmarEliminacion({{ comentario.id }})">
+                                            Eliminar
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="comentario-contenido">
+                    <p class="mb-0">{{ comentario.contenido|linebreaks }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-light">
+            Aún no hay comentarios. ¡Sé el primero en comentar!
+        </div>
+    {% endif %}
+</div>
+
+
+<!-- Modal de confirmación para eliminar comentario -->
+<div class="modal fade" id="eliminarComentarioModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que quieres eliminar este comentario? Esta acción no se puede deshacer.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <a href="#" id="confirmarEliminarBtn" class="btn btn-danger">Eliminar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .comentarios-seccion {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+    }
+    
+    .comentario {
+        background-color: white;
+        transition: box-shadow 0.3s ease;
+    }
+    
+    .comentario:hover {
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .agregar-comentario {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        border: 1px solid #dee2e6;
+    }
+    
+    .autor-info strong {
+        color: #495057;
+    }
+    
+    .comentario-acciones .dropdown-toggle {
+        border: none;
+        background: none;
+        color: #6c757d;
+    }
+    
+    .comentario-acciones .dropdown-toggle:hover {
+        color: #495057;
+    }
+</style>
+
+<script>
+    function confirmarEliminacion(comentarioId) {
+        const modal = new bootstrap.Modal(document.getElementById('eliminarComentarioModal'));
+        const confirmarBtn = document.getElementById('confirmarEliminarBtn');
+        confirmarBtn.href = `/comentarios/eliminar/${comentarioId}/`;
+        modal.show();
+    }
+
+    // Auto-resize textarea
+    document.addEventListener('DOMContentLoaded', function() {
+        const textarea = document.getElementById('contenido');
+        if (textarea) {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = this.scrollHeight + 'px';
+            });
+        }
+    });
+</script>
+
