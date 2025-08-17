@@ -4,7 +4,9 @@
 
 {% block content %}
 
+{%if user.is_authenticated and user.is_staff or user.is_superuser%}
 <div> <a href="{% url 'noticias:path_creacion_noticias' %}">Crear una nueva noticia</a></li> </div>
+{% endif %}
 
 {% for noticia in object_list %}
 {% if noticia.imagen %}

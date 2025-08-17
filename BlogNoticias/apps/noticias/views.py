@@ -17,6 +17,7 @@ from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
 from .forms import FormularioCMNoticia
 
+
 class Listado_Noticias(ListView):
     model = Noticia
     template_name = 'noticias/lista_noticias.html'
@@ -32,7 +33,13 @@ class Detalle_Noticia(DetailView):
     model = Noticia
     template_name= 'noticias/detalle_noticias.html'
     context_object_name = 'noticia'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comentarios'] = self.object.comentarios.all().order_by('-creado_en')
+        context['user'] = self.request.user  # 👈 Forzamos el usuario al contexto
+        return context
 
+#modiFR
 class Crear_Noticia(CreateView):
     model = Noticia
     template_name = 'noticias/crear_noticias.html'
@@ -53,3 +60,4 @@ def Filtrado_Por_Categorias(request, pk):
     categoria_filtro= Categoria.objects.get(pk = pk) 
     noticias_filtradas = Noticia.objects.filter(categoria = categoria_filtro )
     return render (request, 'noticias/filtrado_noticias.html', {'noticias': noticias_filtradas, 'categoria': categoria_filtro})
+
