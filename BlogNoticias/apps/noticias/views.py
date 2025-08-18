@@ -24,10 +24,17 @@ class Listado_Noticias(ListView):
     context_object_name = 'noticias'
 #Coloco que las instancias las voy a llamar por una 
 #variable que se llame noticia
-    paginate_by= 10
-#Esto me permite poder mostrar las noticias de a 10 por página
-#En el html le voy a agregar una funcionalidad para poder moverse 
-#entre las páginas y ver el resto de las noticias
+
+    def get_queryset(self):
+        orden = self.request.GET.get('orden', None)
+        if orden: 
+            if orden == 'rec':
+                return Noticia.objects.order_by('-fecha_creacion')
+            else:
+                return Noticia.objects.order_by('fecha_creacion')
+        else:
+            return Noticia.objects.all()
+
 
 class Detalle_Noticia(DetailView):
     model = Noticia

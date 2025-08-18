@@ -5,8 +5,16 @@
 {% block content %}
 
 {%if user.is_authenticated and user.is_staff or user.is_superuser%}
-<div> <a href="{% url 'noticias:path_creacion_noticias' %}">Crear una nueva noticia</a></li> </div>
+<div> <br> <a href="{% url 'noticias:path_creacion_noticias' %}">Crear una nueva noticia</a> <br>
+</div>
 {% endif %}
+
+<div>
+    <a href="{% url 'noticias:path_listado_noticias' %}?orden=rec">Más recientes</a> | 
+    <a href="{% url 'noticias:path_listado_noticias' %}?orden=ant">Más antiguas</a>
+    <br>
+</div>
+
 
 {% for noticia in object_list %}
 {% if noticia.imagen %}
@@ -18,19 +26,5 @@
     <p>{{ noticia.resumen }}</p>
     <p><strong> Categoria: </strong> {{ noticia.categoria }}</p>
 {% endfor %}
-
-<div class="pagination">
-    {% if page_obj.has_previous %}
-        <a href="?page=1">Primera</a>
-        <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
-    {% endif %}
-
-    <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
-
-    {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
-        <a href="?page={{ page_obj.paginator.num_pages }}">Última</a>
-    {% endif %}
-</div>
 
 {% endblock %}
