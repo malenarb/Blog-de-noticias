@@ -21,7 +21,7 @@
             <!-- Metadatos de la noticia -->
             <div class="noticia-meta mb-4">
                 <small class="text-muted">
-                    Publicado el {{ noticia.fecha_publicacion|date:"d/m/Y H:i" }}
+                    Publicado el {{ noticia.fecha_creacion}}
                     {% if noticia.autor %}
                         por {{ noticia.autor }}
                     {% endif %}
@@ -43,8 +43,8 @@
         </div>
     </div>
 </div>
-
-<a href="{% url 'noticias:path_modificacion_noticias' noticia.pk %}">Modificar</a> <br>
-<a href="{% url 'noticias:path_eliminacion_noticias' noticia.pk %}">Eliminar</a>
-
+{%if user.is_authenticated and user.is_staff or user.is_superuser%}
+    <a href="{% url 'noticias:path_modificacion_noticias' noticia.pk %}">Modificar</a> <br>
+    <a href="{% url 'noticias:path_eliminacion_noticias' noticia.pk %}">Eliminar</a>
+{%endif%}
 {% endblock %}
