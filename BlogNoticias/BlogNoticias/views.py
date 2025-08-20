@@ -9,3 +9,8 @@ def home(request):
         'noticias': noticias,
         'categorias': categorias
     })
+def acerca(request):
+    return render(request, 'Sobre_Nosotros.html')
+
+def contacto(request):
+    return render(request, 'Contacto.html')

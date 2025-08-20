@@ -13,7 +13,8 @@ urlpatterns = [
     path('usuarios/', include('apps.usuarios.urls')),
     path('comentarios/', include(('apps.comentarios.urls', 'comentarios'), namespace='comentarios')),
     #path('home/', views.Home, name = 'path_home'),
-
+    path('Sobre_Nosotros/', views.acerca, name='Sobre_Nosotros'),
+    path('Contacto/', views.contacto, name='Contacto'),
 ] + static (settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
 #revisar esto último, no estoy segura de para qué se usaba
