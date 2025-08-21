@@ -18,10 +18,13 @@
 
 
 <!-- Botones para ordenar por reciente y por antigua -->
-<div>
-    <a href="{% url 'noticias:path_listado_noticias' %}?orden=rec">Más recientes</a> | 
-    <a href="{% url 'noticias:path_listado_noticias' %}?orden=ant">Más antiguas</a>
-    <br>
+<div class="orden-botones">
+    <a href="{% url 'noticias:path_listado_noticias' %}?orden=rec" class="btn-orden">
+        Más recientes
+    </a>
+    <a href="{% url 'noticias:path_listado_noticias' %}?orden=ant" class="btn-orden btn-antigua">
+        Más antiguas
+    </a>
 </div>
 
 

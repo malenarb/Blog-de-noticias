@@ -546,6 +546,42 @@ hr {
     font-weight: bold;
 }
 
+.orden-botones {
+    margin-bottom: 20px;
+}
+
+.btn-orden {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 0 5px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: white;
+    background-color: #6c757d; 
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.btn-orden:hover {
+    background-color: #6c757d;
+    transform: translateY(-2px);
+}
+
+.btn-orden.btn-antigua {
+    background-color: #6c757d; /* gris */
+}
+
+.btn-orden.btn-antigua:hover {
+    background-color: #5c636a;
+}
+
+@media (max-width: 576px) {
+    .orden-botones {
+        display: flex;
+        justify-content: center;    /* los centra horizontalmente */
+        gap: 8px;               /* espacio entre botones cuando se apilan */
+    }
+}
+
 /* Grid de noticias */
 .noticias-grid {
     display: grid;
