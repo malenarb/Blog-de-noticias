@@ -3,11 +3,11 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from . import views
-
+from apps.noticias.views import Listado_Noticias
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('', views.home, name='path_home'),
+    path('', Listado_Noticias.as_view(), name='path_home'),
     path('noticias/', include('apps.noticias.urls', namespace='noticias')),
     path('categorias/', include('apps.categorias.urls', namespace='categorias')),
     path('usuarios/', include('apps.usuarios.urls')),
