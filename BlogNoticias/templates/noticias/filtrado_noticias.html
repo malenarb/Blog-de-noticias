@@ -1,27 +1,67 @@
 {% extends 'base.html' %}
 
-{% block title %}Noticias acerca de {{categoria.nombre}}{% endblock %}
+{% block title %}
+{% if categoria %}
+    {{ categoria.nombre }}
+{% elif noticias %}
+    {{ noticias.0.categoria }}
+{% else %}
+    Noticias Filtradas
+{% endif %}
+{% endblock %}
 
 {% block content %}
 
-<h2>{{categoria.nombre}}</h2>
-<p>{{categoria.descripcion}}</p>
-<div>
-    {% if noticias %}
-        {% for noticia in  noticias %}
-
-            {% if noticia.imagen %}
-                <p><img src="{{ noticia.imagen.url }}"></p>
+<div class="noticias-header">
+    <div class="header-content">
+        <div class="categoria-info">
+            {% if categoria %}
+                <h1>{{ categoria.nombre }}</h1>
+                <p class="categoria-descripcion">Noticias de la categoría {{ categoria.nombre }}</p>
+            {% elif noticias %}
+                <h1>{{ noticias.0.categoria }}</h1>
+                <p class="categoria-descripcion">Noticias de la categoría {{ noticias.0.categoria }}</p>
             {% else %}
-                <p>No hay imagen disponible</p>
+                <h1>Noticias Filtradas</h1>
             {% endif %}
-            <h3><a href="{% url 'noticias:path_detalle_noticias' noticia.pk %}">{{ noticia.titulo }}</a></h3>
-            <p>{{ noticia.resumen }}</p>
-            <p><strong> Categoria: </strong> {{ noticia.categoria }}</p>
-        {% endfor %}
-    {% else %}
-        <p>Aún no existen noticias para esta categoria</p>
-    {% endif %}
+        </div>
+    </div>
 </div>
+
+{% if noticias %}
+<div class="noticias-grid">
+    {% for noticia in noticias %}
+    <article class="noticia-card">
+        <div class="noticia-imagen">
+            {% if noticia.imagen %}
+                <img src="{{ noticia.imagen.url }}" alt="{{ noticia.titulo }}">
+            {% else %}
+                <div class="imagen-placeholder"><span>📰</span></div>
+            {% endif %}
+            <div class="categoria-badge">{{ noticia.categoria }}</div>
+        </div>
+        <div class="noticia-contenido">
+            <h3 class="noticia-titulo">
+                <a href="{% url 'noticias:path_detalle_noticias' noticia.pk %}">{{ noticia.titulo }}</a>
+            </h3>
+            <p class="noticia-resumen">{{ noticia.resumen|truncatewords:20 }}</p>
+            <div class="noticia-meta">
+                <span class="fecha">{{ noticia.fecha_creacion|date:"d M Y" }}</span>
+                {% if noticia.autor %}
+                    <span class="autor">por {{ noticia.autor }}</span>
+                {% endif %}
+            </div>
+            <a href="{% url 'noticias:path_detalle_noticias' noticia.pk %}" class="leer-mas">Leer más →</a>
+        </div>
+    </article>
+    {% endfor %}
+</div>
+{% else %}
+<div class="no-noticias-categoria">
+    <div class="icono-vacio">📰</div>
+    <h3>No hay noticias en esta categoría</h3>
+    <p>Aún no existen noticias para esta categoría</p>
+</div>
+{% endif %}
 
 {% endblock %}

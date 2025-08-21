@@ -1,20 +1,37 @@
 {% extends 'base.html' %}
 
-{% block title %}Lista de Categorias{% endblock %}
+{% block title %}Lista de Categorías{% endblock %}
 
 {% block content %}
+<div class="categorias-container">
+    <div class="categorias-header">
+        <h2>Categorías</h2>
+    </div>
 
-{% for categoria in object_list %}
-
-{% if categoria.imagen %}
-        <p><a href="{% url 'noticias:path_filtrar_por_categoria_noticias' categoria.pk %}">
-                <img src="{{ categoria.imagen.url }}" width="200">
+    <div class="categorias-grid">
+        {% for categoria in object_list %}
+        <div class="categoria-item">
+            <a href="{% url 'noticias:path_filtrar_por_categoria_noticias' categoria.pk %}" class="categoria-link">
+                <div class="categoria-image">
+                    {% if categoria.imagen %}
+                        <img src="{{ categoria.imagen.url }}" alt="{{ categoria.nombre }}">
+                    {% else %}
+                        <div class="imagen-placeholder">
+                            <span>📰</span>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="categoria-nombre">
+                    <h4>{{ categoria.nombre }}</h4>
+                </div>
             </a>
-        </p>
-    {% else %}
-        <p>No hay imagen disponible</p>
-    {% endif %}
-    <p>{{ categoria.nombre }}</p>
-{% endfor %}
-
+        </div>
+        {% empty %}
+        <div class="no-categorias">
+            <p>No hay categorías disponibles.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
+

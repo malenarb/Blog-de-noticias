@@ -1,83 +1,33 @@
+{% load static %}
 <!doctype html>
 <html lang="es-ar">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}Blog de Noticias{% endblock %}</title>
-
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <!-- Bootstrap CSS v5.3 (opcional, si usás bootstrap) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-    <style>
-        nav {
-            display: flex;
-            background-color: #343a40;
-            padding: 0.5rem 1rem;
-            align-items: center;
-        }
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-wrap: nowrap;
-            align-items: center;
-            width: 100%;
-        }
-        nav ul li {
-            margin-right: 1rem;
-        }
-        nav ul li a, nav ul li div {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        nav ul li a:hover, nav ul li div:hover {
-            text-decoration: underline;
-            cursor: pointer;
-        }
-        /* Dropdown */
-        #userMenu {
-            position: relative;
-            user-select: none;
-        }
-        #dropdownMenu {
-            display: none;
-            position: absolute;
-            background-color: white;
-            color: black;
-            list-style: none;
-            margin-top: 0.5rem;
-            padding: 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            min-width: 120px;
-            z-index: 1000;
-        }
-        #dropdownMenu li a {
-            display: block;
-            padding: 0.5rem 1rem;
-            color: black;
-            text-decoration: none;
-        }
-        #dropdownMenu li a:hover {
-            background-color: #f8f9fa;
-        }
-        /* Spacer to push user menu right */
-        .spacer {
-            flex-grow: 1;
-        }
-    </style>
 </head>
 <body>
+    <div class="topbar">
+        <div class="topbar-container">
+            <div class="logo-section">
+                <a href="{% url 'path_home' %}" class="logo-link">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo Blog de Noticias" class="site-logo">
+                </a>
+            </div>
+        </div>
+    </div>
     <header>
         <nav>
             <ul>
                 <li><a href="{% url 'path_home' %}">Inicio</a></li>
-                <li><a href="{% url 'noticias:path_listado_noticias' %}">Noticias</a></li>
+
                 <li><a href="{% url 'categorias:path_listado_categorias' %}">Categorías</a></li>
-                <li><a href="{% url 'path_home' %}">Acerca de</a></li>
-                <li><a href="{% url 'path_home' %}">Contacto</a></li>
+                <li><a href="{% url 'Sobre_Nosotros' %}">Sobre Nosotros</a></li>
+                <li><a href="{% url 'Contacto' %}">Contacto</a></li>
 
                 <li class="spacer"></li>
 
@@ -99,6 +49,7 @@
     </header>
 
     <main>
+        <div class="container">
         {% block content %}
         {% endblock %}
     </main>

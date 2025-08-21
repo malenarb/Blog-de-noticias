@@ -4,11 +4,20 @@
 
 {% block content %}
 
-{%if user.is_authenticated and user.is_staff or user.is_superuser%}
-<div> <br> <a href="{% url 'noticias:path_creacion_noticias' %}">Crear una nueva noticia</a> <br>
+<!-- Header con botón de crear -->
+<div class="noticias-header">
+    <div class="header-content">
+        <h1>Últimas Noticias</h1>
+        {% if user.is_authenticated and user.is_staff or user.is_superuser %}
+            <a href="{% url 'noticias:path_creacion_noticias' %}" class="btn-crear">
+                <span>+</span> Nueva Noticia
+            </a>
+        {% endif %}
+    </div>
 </div>
-{% endif %}
 
+
+<!-- Botones para ordenar por reciente y por antigua -->
 <div>
     <a href="{% url 'noticias:path_listado_noticias' %}?orden=rec">Más recientes</a> | 
     <a href="{% url 'noticias:path_listado_noticias' %}?orden=ant">Más antiguas</a>
@@ -16,15 +25,80 @@
 </div>
 
 
-{% for noticia in object_list %}
-{% if noticia.imagen %}
-        <p><img src="{{ noticia.imagen.url }}"></p>
-    {% else %}
-        <p>No hay imagen disponible</p>
-    {% endif %}
-    <h3><a href="{% url 'noticias:path_detalle_noticias' noticia.pk %}">{{ noticia.titulo }}</a></h3>
-    <p>{{ noticia.resumen }}</p>
-    <p><strong> Categoria: </strong> {{ noticia.categoria }}</p>
-{% endfor %}
+<!-- Grid de noticias -->
+<div class="noticias-grid">
+    {% for noticia in object_list %}
+    <article class="noticia-card">
+        <div class="noticia-imagen">
+            {% if noticia.imagen %}
+                <img src="{{ noticia.imagen.url }}" alt="{{ noticia.titulo }}">
+            {% else %}
+                <div class="imagen-placeholder">
+                    <span>📰</span>
+                </div>
+            {% endif %}
+            {% if noticia.categoria %}
+                <div class="categoria-badge">{{ noticia.categoria }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="noticia-contenido">
+            <h3 class="noticia-titulo">
+                <a href="{% url 'noticias:path_detalle_noticias' noticia.pk %}">
+                    {{ noticia.titulo }}
+                </a>
+            </h3>
+            
+            <p class="noticia-resumen">{{ noticia.resumen|truncatewords:20 }}</p>
+            
+            <div class="noticia-meta">
+                <span class="fecha">{{ noticia.fecha_creacion|date:"d M Y" }}</span>
+                {% if noticia.autor %}
+                    <span class="autor">por {{ noticia.autor }}</span>
+                {% endif %}
+            </div>
+            
+            <a href="{% url 'noticias:path_detalle_noticias' noticia.pk %}" class="leer-mas">
+                Leer más →
+            </a>
+        </div>
+    </article>
+    {% empty %}
+    <div class="no-noticias">
+        <h3>No hay noticias disponibles</h3>
+        <p>Vuelve pronto para ver las últimas actualizaciones.</p>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Paginación mejorada -->
+{% if page_obj.paginator.num_pages > 1 %}
+<div class="paginacion-container">
+    <nav class="paginacion">
+        {% if page_obj.has_previous %}
+            <a href="?page=1" class="pagina-btn">
+                <span>«</span>
+            </a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="pagina-btn">
+                <span>‹</span>
+            </a>
+        {% endif %}
+
+        <span class="pagina-info">
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="pagina-btn">
+                <span>›</span>
+            </a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="pagina-btn">
+                <span>»</span>
+            </a>
+        {% endif %}
+    </nav>
+</div>
+{% endif %}
 
 {% endblock %}
+

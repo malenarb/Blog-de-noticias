@@ -4,47 +4,54 @@
 
 {% block content %}
 
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-lg-8 mx-auto">
-            <!-- Imagen de la noticia -->
-            {% if noticia.imagen %}
-                <img src="{{ noticia.imagen.url }}" class="img-fluid rounded mb-4" alt="{{ noticia.titulo }}">
-            {% endif %}
-            
-            <!-- Título de la noticia -->
-            <h1 class="mb-3">{{ noticia.titulo }}</h1>
-            
-            <!-- Resumen de la noticia -->
-            <h4 class="text-muted mb-4">{{ noticia.resumen }}</h4>
-            
-            <!-- Metadatos de la noticia -->
-            <div class="noticia-meta mb-4">
-                <small class="text-muted">
-                    Publicado el {{ noticia.fecha_publicacion|date:"d/m/Y H:i" }}
-                    {% if noticia.autor %}
-                        por {{ noticia.autor }}
-                    {% endif %}
-                    {% if noticia.categoria %}
-                        en <span class="badge bg-primary">{{ noticia.categoria }}</span>
-                    {% endif %}
-                </small>
-            </div>
-            
-            <hr>
-            
-            <!-- Contenido de la noticia -->
-            <div class="noticia-contenido mb-5">
-                <p>{{ noticia.contenido|linebreaks }}</p>
-            </div>
-            
-            <!-- SECCIÓN DE COMENTARIOS -->
-            {% include 'comentarios/seccion_comentarios.html' %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <!-- Imagen de la noticia -->
+        {% if noticia.imagen %}
+            <img src="{{ noticia.imagen.url }}" class="img-fluid rounded mb-4" alt="{{ noticia.titulo }}">
+        {% endif %}
+        
+        <!-- Título de la noticia -->
+        <h1 class="mb-3">{{ noticia.titulo }}</h1>
+        
+        <!-- Resumen de la noticia -->
+        <h4 class="text-muted mb-4">{{ noticia.resumen }}</h4>
+        
+        <!-- Metadatos de la noticia -->
+        <div class="noticia-meta mb-4">
+            <small class="text-muted">
+                Publicado el {{ noticia.fecha_creacion}}
+                {% if noticia.autor %}
+                    por {{ noticia.autor }}
+                {% endif %}
+                {% if noticia.categoria %}
+                    en <span class="badge bg-primary">{{ noticia.categoria }}</span>
+                {% endif %}
+            </small>
         </div>
+        
+        <hr>
+        
+        <!-- Contenido de la noticia -->
+        <div class="noticia-contenido mb-5">
+            <p>{{ noticia.contenido|linebreaks }}</p>
+        </div>
+        
+        <!-- SECCIÓN DE COMENTARIOS -->
+        {% include 'comentarios/seccion_comentarios.html' %}
+        
+        <!-- Botones de administración -->
+        {% if user.is_authenticated and user.is_staff or user.is_superuser %}
+            <div class="admin-actions mt-4 pt-3 border-top">
+                <a href="{% url 'noticias:path_modificacion_noticias' noticia.pk %}" class="btn btn-outline-primary btn-sm me-2">
+                    Modificar
+                </a>
+                <a href="{% url 'noticias:path_eliminacion_noticias' noticia.pk %}" class="btn btn-outline-danger btn-sm">
+                    Eliminar
+                </a>
+            </div>
+        {% endif %}
     </div>
 </div>
-
-<a href="{% url 'noticias:path_modificacion_noticias' noticia.pk %}">Modificar</a> <br>
-<a href="{% url 'noticias:path_eliminacion_noticias' noticia.pk %}">Eliminar</a>
 
 {% endblock %}
