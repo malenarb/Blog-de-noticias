@@ -8,7 +8,9 @@
     <div class="col-lg-8 mx-auto">
         <!-- Imagen de la noticia -->
         {% if noticia.imagen %}
-            <img src="{{ noticia.imagen.url }}" class="img-fluid rounded mb-4" alt="{{ noticia.titulo }}">
+            <div class="text-center mb-3" >
+                <img src="{{ noticia.imagen.url }}" class="img-fluid rounded" alt="{{ noticia.titulo }}">
+            </div>
         {% endif %}
         
         <!-- Título de la noticia -->

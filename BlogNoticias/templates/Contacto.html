@@ -1,12 +1,51 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Contacto{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1 class="mb-4">Contáctanos</h1>
-    <p>
-        Contáctanos vía mail: TecnoChaco@gmail.com
-    </p>
-</div>
+    <header class="header-creadores">
+        <h1>Creadores</h1>
+        <p>Conoce al equipo detrás de esta página</p>
+    </header>
+
+   <section class="creadores-container">
+        <!-- Creador 1 -->
+        <div class="card-creador">
+            <h2>Malena Romero Bruno</h2>
+            <p class="rol-creador">Estudiante de Ingenieria</p>
+
+            <!-- Contacto: email y teléfono -->
+            <p>Email: <a href="mailto:malenaromerob@gmail.com">malenaromerob@gmail.com</a> </p>
+
+            <!-- Botones de redes sociales -->
+            <div class="social-buttons">
+                <a href="https://www.instagram.com/usuario1" target="_blank" class="btn-social instagram">
+                    <i class="bi bi-instagram"></i> Instagram
+                </a>
+                <a href="https://www.linkedin.com/in/usuario1" target="_blank" class="btn-social linkedin">
+                    <i class="bi bi-linkedin"></i> LinkedIn
+                </a>
+            </div>
+        </div>
+
+        <!-- Creador 2 -->
+        <div class="card-creador">
+            <h2>Frank Morinigo</h2>
+            <p class="rol-creador">Estudiante de Ingenieria</p>
+
+            <!-- Contacto: email y teléfono -->
+            <p>Email: <a href="franksteven032@gmail.com">franksteven032@gmail.com</a></p>
+
+            <!-- Botones de redes sociales -->
+            <div class="social-buttons">
+                <a href="https://www.instagram.com/usuario1" target="_blank" class="btn-social instagram">
+                    <i class="bi bi-instagram"></i> Instagram
+                </a>
+                <a href="https://www.linkedin.com/in/usuario1" target="_blank" class="btn-social linkedin">
+                    <i class="bi bi-linkedin"></i> LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
 {% endblock %}

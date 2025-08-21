@@ -989,3 +989,145 @@ hr {
 .categoria-info {
     position: relative;
 }
+
+.header-creadores {
+    text-align: center;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+}
+
+.header-creadores h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.header-creadores p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    color: white;
+}
+
+/* Contenedor de las tarjetas */
+.creadores-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 50px 20px;
+}
+
+/* Tarjetas exclusivas */
+.card-creador {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.card-creador:hover {
+    transform: translateY(-10px);
+}
+
+/* Nombre */
+.card-creador h2 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    color: #475569;
+}
+
+/* Rol dentro de la tarjeta */
+.rol-creador {
+    font-weight: bold;
+    color: #64748b;
+    margin-bottom: 8px;
+}
+
+.social-buttons {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn-social {
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    color: white;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-social:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.btn-social.instagram {
+    background: #E1306C;
+}
+
+.btn-social.linkedin {
+    background: #0077B5;
+}
+
+.btn-social.email {
+    background: #6c757d;
+}
+
+.btn-social.telefono {
+    background: #28a745; /* verde para teléfono */
+}
+
+.sobre-nosotros {
+    padding: 10px 10px;
+}
+
+.sobre-nosotros .titulo {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #475569;
+}
+
+.imagen-container {
+    margin-bottom: 30px;
+}
+
+.imagen-sobre {
+    width: 100%;
+    max-width: 600px;  /* limita el tamaño máximo */
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.texto-sobre {
+    max-width: 900px;   /* limita el ancho del texto */
+    margin: 0 auto;
+    text-align: justify;
+    line-height: 1.7;
+    font-size: 1.05rem;
+    color: #333;
+}
+
+/* Responsive: en pantallas pequeñas */
+@media (max-width: 768px) {
+    .sobre-nosotros .titulo {
+        font-size: 2rem;
+    }
+
+    .texto-sobre {
+        font-size: 1rem;
+        line-height: 1.6;
+        padding: 0 10px;
+    }
+
+    .imagen-sobre {
+        max-width: 100%;
+    }
+}

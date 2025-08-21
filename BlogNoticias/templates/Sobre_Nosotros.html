@@ -1,12 +1,29 @@
 {% extends 'base.html' %}
-
+{%load static%}
 {% block title %}Sobre Nosotros{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h1 class="mb-4">Sobre Nosotros</h1>
-    <p>
-        "TecnoChaco" es un espacio para explorar cómo la innovación y el emprendimiento están transformando nuestra provincia. Buscamos visibilizar las historias de aquellos que están construyendo el futuro del Chaco con tecnología, generando un punto de encuentro para la colaboración y el debate. Creemos que el desarrollo digital es clave para el progreso de nuestra región, y este es el lugar para entenderlo, debatirlo e impulsarlo.
-    </p>
-</div>
+<section class="sobre-nosotros">
+    <div class="text-center">
+        <h1 class="titulo">Sobre Nosotros</h1>
+
+        <div class="texto-sobre">
+            <p>
+                <strong>TecnoChaco</strong> es un espacio para explorar cómo la innovación y el emprendimiento están 
+                transformando nuestra provincia. Buscamos visibilizar las historias de aquellos que están construyendo 
+                el futuro del Chaco con tecnología, generando un punto de encuentro para la colaboración y el debate.
+            </p>
+            <p>
+                Creemos que el desarrollo digital es clave para el progreso de nuestra región, 
+                y este es el lugar para entenderlo, debatirlo e impulsarlo.
+            </p>
+        </div>
+
+        <div class="imagen-container mb-4">
+            <img src="{% static 'images/sobrenosotros.jpg' %}" 
+                 alt="Equipo de TecnoChaco" 
+                 class="imagen-sobre">
+        </div>
+    </div>
+</section>
 {% endblock %}
